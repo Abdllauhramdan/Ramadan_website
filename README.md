@@ -1,93 +1,135 @@
-# RAMADAN — Engineering Office Website / موقع مكتب رمضان الهندسي
+# RAMADAN — Engineering Office Platform / منصة مكتب رمضان الهندسي
 
-موقع إلكتروني **static** ثنائي اللغة (عربي/إنجليزي) لمكتب رمضان الهندسي، مع لوحة تحكم
-لإدارة المحتوى، ووضع داكن/فاتح، مبني بـ **React + Vite**.
+موقع ثنائي اللغة (عربي/إنجليزي) لمكتب رمضان الهندسي، مع **لوحة تحكم متكاملة** لإدارة
+المحتوى، ووضع **داكن/فاتح**. النظام مبني كـ:
 
-A static, bilingual (Arabic/English) website for the RAMADAN engineering office,
-with a content dashboard, dark/light mode, built with **React + Vite**.
+- **Frontend:** React + Vite (مجلد `frontend/`)
+- **Backend:** Laravel 13 + **MySQL**، واجهة API ومصادقة Sanctum (مجلد `backend/`)
+
+A bilingual (Arabic/English) website for the RAMADAN engineering office, with a
+full content **dashboard**, dark/light mode, a **React + Vite** front-end and a
+**Laravel + MySQL** REST API backend.
+
+---
+
+## 🧱 البنية / Architecture
+
+```
+ramadan_website/
+├── frontend/   ← React + Vite SPA (public site + /#/dashboard)
+└── backend/    ← Laravel 13 REST API + MySQL + Sanctum auth
+```
+
+- الواجهة تقرأ المحتوى من `GET /api/content` وتعرضه ديناميكياً.
+- لوحة التحكم تسجّل الدخول عبر `POST /api/login` (توكن Sanctum) وتعدّل المحتوى
+  مباشرة في قاعدة البيانات عبر واجهات محمية.
+- نموذج «تواصل معنا» يحفظ الرسائل في قاعدة البيانات وتظهر في تبويب **الرسائل**،
+  مع زر واتساب مباشر.
 
 ---
 
 ## ✨ الميزات / Features
 
-- 🌐 لغتان: العربية (RTL) والإنجليزية (LTR) — الافتراضي العربية
-- 🌗 وضع داكن وفاتح (يتذكر اختيار الزائر)
-- 🎨 هوية ألوان مستوحاة من اللوغو (ذهبي + فضي/رمادي)
-- 📄 صفحات كاملة: الرئيسية، من نحن، الخدمات، الأعمال، تواصل معنا
-- 🛠️ لوحة تحكم `/#/dashboard` لإدارة كل المحتوى بدون برمجة
-- 📦 محتوى ديناميكي من ملف `content.json`
-- 💬 نموذج تواصل يفتح واتساب أو البريد مباشرة
+- 🌐 لغتان: العربية (RTL، الافتراضية) والإنجليزية (LTR)
+- 🌗 وضع داكن وفاتح
+- 🎨 هوية ألوان مستوحاة من اللوغو (ذهبي + فضي)
+- 📄 صفحات: الرئيسية، من نحن، الخدمات، الأعمال (مع فلترة)، تواصل معنا
+- 🛠️ لوحة تحكم كاملة: إعدادات الموقع، الهيرو، من نحن، التواصل، الأرقام، الخدمات،
+  الأعمال، لماذا نحن، الرسائل، الحساب
+- 🗄️ قاعدة بيانات MySQL مع API كامل واختبارات
 
 ---
 
 ## 🚀 التشغيل محلياً / Local development
 
+### 1) Backend (Laravel + DB)
+
 ```bash
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+
+# اضبط قاعدة البيانات في .env (MySQL للإنتاج)، أو SQLite للتطوير السريع:
+#   DB_CONNECTION=sqlite  ثم:  touch database/database.sqlite
+
+php artisan migrate --seed
+php artisan serve            # http://127.0.0.1:8000
+```
+
+بيانات الدخول الافتراضية للوحة التحكم:
+
+| | |
+|---|---|
+| البريد / Email | `admin@ramadan-eng.com` |
+| كلمة المرور / Password | `ramadan2026` |
+
+> غيّر كلمة المرور فوراً من تبويب **الحساب** داخل اللوحة بعد أول دخول.
+
+### 2) Frontend (React)
+
+```bash
+cd frontend
 npm install
-npm run dev      # http://localhost:5173
+cp .env.example .env          # اضبط VITE_API_URL إلى عنوان الـ API
+npm run dev                   # http://localhost:5173
 ```
 
-## 🏗️ البناء للنشر / Build for production
+لوحة التحكم على: `http://localhost:5173/#/dashboard`
+
+---
+
+## 🧪 الاختبارات / Tests
 
 ```bash
-npm run build    # ينتج مجلد dist/
-npm run preview  # معاينة نسخة الإنتاج
+cd backend
+php artisan test              # يعمل على SQLite بالذاكرة
 ```
+
+تغطّي الاختبارات: واجهة المحتوى العامة، المصادقة والصلاحيات، CRUD للأعمال
+والخدمات والأقسام، رسائل التواصل، وتغيير كلمة المرور.
 
 ---
 
-## 🌍 النشر على الاستضافة / Deploy to hosting
+## 🌍 النشر / Deployment (cPanel أو أي استضافة PHP + MySQL)
 
-الموقع **static** بالكامل، لذا:
+> ⚠️ النظام ليس static — يحتاج استضافة تدعم **PHP 8.2+** و**MySQL**.
 
-1. شغّل `npm run build`.
-2. ارفع **محتويات مجلد `dist/`** (وليس المجلد نفسه) إلى مجلد `public_html`
-   في استضافتك (cPanel / أي استضافة static).
-3. الموقع يعمل من أي مجلد لأن `base` نسبي، والروابط تستخدم `#` (HashRouter)
-   فلا حاجة لإعدادات إعادة توجيه على السيرفر.
+### Backend
+1. ارفع مجلد `backend/` خارج `public_html` إن أمكن.
+2. وجّه الدومين/الـ document root إلى `backend/public`.
+3. أنشئ قاعدة MySQL من cPanel واضبط بياناتها في `.env`.
+4. نفّذ:
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   php artisan key:generate
+   php artisan migrate --seed
+   php artisan config:cache
+   ```
 
-> If you prefer, you can also drop the `dist/` folder on Netlify, Vercel,
-> GitHub Pages, or Cloudflare Pages.
+### Frontend
+1. اضبط `frontend/.env` → `VITE_API_URL=https://your-domain.com/api`
+2. `npm run build` → ينتج `frontend/dist/`
+3. ارفع محتويات `dist/` إلى مجلد الموقع الثابت (أو دومين فرعي للواجهة).
 
----
-
-## 🛠️ لوحة التحكم / Content Dashboard
-
-- الرابط: `https://your-site.com/#/dashboard`
-- كلمة المرور الافتراضية: **`ramadan2026`**
-  (غيّرها فوراً من تبويب «الحساب» داخل اللوحة).
-
-### كيف يعمل تحديث المحتوى (مهم)
-
-الموقع static فلا يوجد سيرفر يحفظ التعديلات. الآلية:
-
-1. عدّل المحتوى في اللوحة ثم اضغط **حفظ** → التغييرات تظهر فوراً **على متصفحك**
-   (محفوظة في `localStorage`).
-2. لنشر التعديلات **لكل الزوار**: اضغط **تصدير `content.json`**، ثم ارفع الملف
-   الناتج إلى **جذر موقعك** (نفس مكان `index.html`) ليستبدل القديم.
-3. زر **استيراد JSON** يتيح تحميل ملف محتوى موجود لمتابعة التعديل عليه.
-
-> الصور تُضاف عبر رابط (URL). ضع صور مشاريعك على الاستضافة أو أي خدمة استضافة صور
-> وانسخ الرابط في الحقل المخصص.
+> راجع `backend/.env.example` لإعدادات MySQL، و`config/cors.php` لتقييد المصادر
+> المسموح لها بالوصول إلى الـ API في الإنتاج.
 
 ---
 
-## 📁 بنية المشروع / Project structure
+## 📡 ملخص واجهات الـ API
 
-```
-public/
-  content.json        ← كل محتوى الموقع (المصدر المنشور)
-  logo.svg            ← اللوغو (استبدله بشعارك الفعلي عند الرغبة)
-src/
-  context/            ← اللغة، الثيم، المحتوى، المصادقة
-  components/          ← Navbar, Footer, Cards, Icon ...
-  pages/              ← Home, About, Services, Projects, Contact, Dashboard
-  i18n/translations.js← نصوص الواجهة الثابتة (عربي/إنجليزي)
-  styles/             ← التنسيقات
-```
+| Method | Endpoint | الوصف | محمي؟ |
+|---|---|---|---|
+| GET | `/api/content` | كل محتوى الموقع | لا |
+| POST | `/api/contact-messages` | إرسال رسالة تواصل | لا |
+| POST | `/api/login` | تسجيل الدخول (توكن) | لا |
+| GET/PUT | `/api/settings` · `/api/hero` · `/api/about` · `/api/contact-settings` | الأقسام المفردة | نعم |
+| CRUD | `/api/services` · `/api/projects` · `/api/stats` · `/api/why-us` | القوائم | نعم |
+| GET/PUT/DELETE | `/api/contact-messages` | إدارة الرسائل | نعم |
+| POST | `/api/change-password` | تغيير كلمة المرور | نعم |
 
-## 🖼️ استبدال اللوغو / Replacing the logo
+## 🖼️ استبدال اللوغو
 
-ضع شعارك في `public/` (مثلاً `logo.png`) ثم حدّث المسار:
-- في لوحة التحكم → إعدادات الموقع → حقل Logo، أو
-- في `public/content.json` الحقل `site.logo`، و`index.html` رابط الـ favicon.
+ضع شعارك في `frontend/public/logo.svg` (أو `logo.png` وحدّث المسار من لوحة التحكم
+→ إعدادات الموقع → حقل Logo).

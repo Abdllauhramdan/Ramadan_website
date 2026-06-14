@@ -1,0 +1,185 @@
+// Static UI strings (labels, buttons, nav). Dynamic content comes from the API.
+export const ui = {
+  ar: {
+    // nav
+    nav_home: 'الرئيسية',
+    nav_about: 'من نحن',
+    nav_services: 'خدماتنا',
+    nav_projects: 'أعمالنا',
+    nav_contact: 'تواصل معنا',
+    nav_dashboard: 'لوحة التحكم',
+
+    // generic
+    learn_more: 'اقرأ المزيد',
+    view_all: 'عرض الكل',
+    read_more: 'تفاصيل أكثر',
+    get_in_touch: 'ابدأ مشروعك',
+    our_services: 'خدماتنا',
+    our_projects: 'أعمالنا',
+    why_us: 'لماذا تختارنا؟',
+    back_home: 'العودة للرئيسية',
+
+    // projects filter
+    filter_all: 'الكل',
+    cat_buildings: 'أبنية',
+    cat_decor: 'ديكور',
+    cat_designs: 'تصاميم هندسية',
+
+    // contact
+    contact_info: 'معلومات التواصل',
+    phone: 'الهاتف',
+    email: 'البريد الإلكتروني',
+    address: 'العنوان',
+    working_hours: 'ساعات العمل',
+    send_whatsapp: 'تواصل عبر واتساب',
+    send_email: 'أرسل بريداً إلكترونياً',
+    send: 'إرسال الرسالة',
+    your_name: 'الاسم',
+    your_email: 'بريدك الإلكتروني',
+    your_phone: 'رقم الهاتف',
+    subject: 'الموضوع',
+    message: 'رسالتك',
+    contact_form_hint: 'املأ النموذج وسيُفتح واتساب أو تطبيق البريد برسالتك جاهزة.',
+    follow_us: 'تابعنا',
+
+    // footer
+    quick_links: 'روابط سريعة',
+    footer_about:
+      'مكتب رمضان الهندسي — حلول متكاملة في الهندسة والاستشارات والإكساء بجودة عالية ولمسة عصرية.',
+    rights: 'جميع الحقوق محفوظة',
+
+    // theme / lang
+    switch_lang: 'English',
+    light_mode: 'الوضع الفاتح',
+    dark_mode: 'الوضع الداكن',
+
+    // dashboard
+    dash_login_title: 'تسجيل دخول لوحة التحكم',
+    dash_password: 'كلمة المرور',
+    dash_login: 'دخول',
+    dash_wrong_pass: 'كلمة المرور غير صحيحة',
+    dash_logout: 'تسجيل الخروج',
+    dash_title: 'لوحة التحكم بالمحتوى',
+    dash_intro:
+      'عدّل المحتوى ثم اضغط حفظ — التغييرات تُحفظ مباشرة في قاعدة البيانات وتظهر لجميع الزوار فوراً.',
+    dash_save: 'حفظ',
+    dash_saved: 'تم الحفظ ✓',
+    dash_change_pass: 'تغيير كلمة المرور',
+    dash_old_pass: 'كلمة المرور الحالية',
+    dash_new_pass: 'كلمة المرور الجديدة',
+    dash_pass_changed: 'تم تغيير كلمة المرور',
+    dash_pass_error: 'كلمة المرور الحالية غير صحيحة',
+    dash_add: 'إضافة',
+    dash_delete: 'حذف',
+    dash_arabic: 'العربية',
+    dash_english: 'الإنجليزية',
+
+    // dashboard sections
+    sec_site: 'إعدادات الموقع',
+    sec_hero: 'القسم الرئيسي',
+    sec_about: 'من نحن',
+    sec_contact: 'قسم التواصل',
+    sec_stats: 'الأرقام',
+    sec_services: 'الخدمات',
+    sec_projects: 'الأعمال',
+    sec_whyus: 'لماذا نحن',
+    sec_messages: 'الرسائل',
+    sec_account: 'الحساب',
+
+    // messages
+    msg_empty: 'لا توجد رسائل بعد.',
+    msg_read: 'تعليم كمقروء',
+    msg_unread: 'تعليم كغير مقروء',
+    msg_sent: 'تم إرسال رسالتك بنجاح ✓',
+
+    loading: 'جارٍ التحميل...',
+    not_found: 'الصفحة غير موجودة',
+  },
+
+  en: {
+    nav_home: 'Home',
+    nav_about: 'About',
+    nav_services: 'Services',
+    nav_projects: 'Projects',
+    nav_contact: 'Contact',
+    nav_dashboard: 'Dashboard',
+
+    learn_more: 'Learn more',
+    view_all: 'View all',
+    read_more: 'Read more',
+    get_in_touch: 'Start Your Project',
+    our_services: 'Our Services',
+    our_projects: 'Our Projects',
+    why_us: 'Why Choose Us?',
+    back_home: 'Back to home',
+
+    filter_all: 'All',
+    cat_buildings: 'Buildings',
+    cat_decor: 'Decor',
+    cat_designs: 'Designs',
+
+    contact_info: 'Contact Information',
+    phone: 'Phone',
+    email: 'Email',
+    address: 'Address',
+    working_hours: 'Working Hours',
+    send_whatsapp: 'Contact via WhatsApp',
+    send_email: 'Send an Email',
+    send: 'Send Message',
+    your_name: 'Name',
+    your_email: 'Your Email',
+    your_phone: 'Phone Number',
+    subject: 'Subject',
+    message: 'Your Message',
+    contact_form_hint: 'Fill the form and WhatsApp or your email app will open with your message ready.',
+    follow_us: 'Follow us',
+
+    quick_links: 'Quick Links',
+    footer_about:
+      'RAMADAN Engineering Office — integrated engineering, consulting and finishing solutions with premium quality and a modern touch.',
+    rights: 'All rights reserved',
+
+    switch_lang: 'العربية',
+    light_mode: 'Light mode',
+    dark_mode: 'Dark mode',
+
+    dash_login_title: 'Dashboard Login',
+    dash_password: 'Password',
+    dash_login: 'Log in',
+    dash_wrong_pass: 'Incorrect password',
+    dash_logout: 'Log out',
+    dash_title: 'Content Dashboard',
+    dash_intro:
+      'Edit content then click save — changes are stored directly in the database and shown to all visitors instantly.',
+    dash_save: 'Save',
+    dash_saved: 'Saved ✓',
+    dash_change_pass: 'Change password',
+    dash_old_pass: 'Current password',
+    dash_new_pass: 'New password',
+    dash_pass_changed: 'Password changed',
+    dash_pass_error: 'Current password is incorrect',
+    dash_add: 'Add',
+    dash_delete: 'Delete',
+    dash_arabic: 'Arabic',
+    dash_english: 'English',
+
+    sec_site: 'Site Settings',
+    sec_hero: 'Hero Section',
+    sec_about: 'About',
+    sec_contact: 'Contact Section',
+    sec_stats: 'Stats',
+    sec_services: 'Services',
+    sec_projects: 'Projects',
+    sec_whyus: 'Why Us',
+    sec_messages: 'Messages',
+    sec_account: 'Account',
+
+    msg_empty: 'No messages yet.',
+    msg_read: 'Mark as read',
+    msg_unread: 'Mark as unread',
+    msg_sent: 'Your message was sent successfully ✓',
+
+    loading: 'Loading...',
+    not_found: 'Page not found',
+  },
+}
