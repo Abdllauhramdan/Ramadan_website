@@ -34,7 +34,7 @@ class ContentApiTest extends TestCase
         $this->seed(DatabaseSeeder::class);
 
         $this->getJson('/api/content')
-            ->assertJsonPath('site.name.ar', 'رمضان')
+            ->assertJsonPath('site.name.ar', 'RAMADAN')
             ->assertJsonPath('site.name.en', 'RAMADAN')
             ->assertJsonPath('services.0.title.en', 'Engineering & Design');
     }

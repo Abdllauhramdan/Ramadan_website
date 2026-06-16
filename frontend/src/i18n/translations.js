@@ -19,6 +19,23 @@ export const ui = {
     why_us: 'لماذا تختارنا؟',
     back_home: 'العودة للرئيسية',
 
+    // services page
+    services_lead: 'حلول هندسية متكاملة تغطّي مشروعك من الفكرة حتى التسليم',
+    services_intro:
+      'نقدّم في مكتب رمضان باقة واسعة من الخدمات الهندسية المتخصصة، تجمع بين الخبرة الفنية والرؤية الجمالية، لنواكب احتياجات المشاريع السكنية والتجارية والصناعية على حدٍّ سواء.',
+    video_heading: 'جولة في أعمالنا',
+    video_sub: 'شاهد لمحة عن مشاريعنا وأعمال التنفيذ والتجهيز.',
+    our_process: 'مراحل عملنا',
+    our_process_sub: 'منهجية واضحة تضمن جودة النتيجة في كل مشروع.',
+    step_consult: 'الاستشارة والدراسة',
+    step_consult_d: 'نستمع لاحتياجك وندرس الموقع والمتطلبات والميزانية.',
+    step_design: 'التصميم والمخططات',
+    step_design_d: 'نعدّ التصاميم المعمارية والإنشائية والمخططات التنفيذية.',
+    step_execute: 'التنفيذ والإشراف',
+    step_execute_d: 'ننفّذ ونشرف هندسياً مع الالتزام بالجودة والمواعيد.',
+    step_deliver: 'التسليم والمتابعة',
+    step_deliver_d: 'نسلّم المشروع جاهزاً مع متابعة ما بعد التسليم.',
+
     // projects filter
     filter_all: 'الكل',
     cat_buildings: 'أبنية',
@@ -112,6 +129,23 @@ export const ui = {
     our_projects: 'Our Projects',
     why_us: 'Why Choose Us?',
     back_home: 'Back to home',
+
+    // services page
+    services_lead: 'Integrated engineering solutions covering your project from concept to delivery',
+    services_intro:
+      'At RAMADAN we offer a wide range of specialized engineering services that blend technical expertise with aesthetic vision, serving residential, commercial and industrial projects alike.',
+    video_heading: 'A Tour of Our Work',
+    video_sub: 'Watch a glimpse of our projects, execution and fit-out work.',
+    our_process: 'Our Process',
+    our_process_sub: 'A clear methodology that guarantees quality results on every project.',
+    step_consult: 'Consultation & Study',
+    step_consult_d: 'We listen to your needs and study the site, requirements and budget.',
+    step_design: 'Design & Drawings',
+    step_design_d: 'We prepare architectural, structural and execution drawings.',
+    step_execute: 'Execution & Supervision',
+    step_execute_d: 'We build and supervise with commitment to quality and deadlines.',
+    step_deliver: 'Delivery & Follow-up',
+    step_deliver_d: 'We deliver the finished project with post-delivery follow-up.',
 
     filter_all: 'All',
     cat_buildings: 'Buildings',

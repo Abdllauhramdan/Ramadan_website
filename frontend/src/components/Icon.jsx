@@ -16,6 +16,8 @@ const paths = {
   check: 'M5 12l5 5L20 6',
   sun: 'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1',
   moon: 'M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z',
+  factory: 'M3 21h18M4 21V10l5 3V10l5 3V7l5-3v17M8 21v-3M13 21v-3M18 21v-3',
+  play: 'M7 5v14l12-7z',
 }
 
 export default function Icon({ name, size = 24, fill = false, ...rest }) {

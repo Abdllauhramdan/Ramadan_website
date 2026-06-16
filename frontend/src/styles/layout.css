@@ -649,6 +649,39 @@ html[dir='rtl'] .btn svg.flip {
   animation: fadeUp 0.3s ease;
 }
 
+/* ---------- Video showcase ---------- */
+.video-wrap {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  background: #000;
+  max-width: 920px;
+  margin-inline: auto;
+}
+.video-wrap video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* ---------- Process steps ---------- */
+.process-step {
+  position: relative;
+  padding-top: 34px;
+}
+.process-num {
+  position: absolute;
+  inset-block-start: 14px;
+  inset-inline-end: 18px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--border);
+}
+
 /* ---------- 404 ---------- */
 .notfound {
   min-height: 60vh;

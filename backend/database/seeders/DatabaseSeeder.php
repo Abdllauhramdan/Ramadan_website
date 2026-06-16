@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 
         // ----- Site settings -----
         Setting::updateOrCreate(['id' => 1], [
-            'name' => ['ar' => 'رمضان', 'en' => 'RAMADAN'],
+            'name' => ['ar' => 'RAMADAN', 'en' => 'RAMADAN'],
             'tagline' => [
                 'ar' => 'مكتب هندسي للهندسة والاستشارات والإكساء',
                 'en' => 'Engineering, Consulting & Finishing Office',
@@ -101,6 +101,7 @@ class DatabaseSeeder extends Seeder
             ['icon' => 'ruler', 'title' => ['ar' => 'الهندسة والتصميم', 'en' => 'Engineering & Design'], 'description' => ['ar' => 'تصميم معماري وإنشائي متكامل للمباني السكنية والتجارية مع مخططات تنفيذية دقيقة ونماذج ثلاثية الأبعاد.', 'en' => 'Integrated architectural and structural design for residential and commercial buildings with precise execution drawings and 3D models.']],
             ['icon' => 'chart', 'title' => ['ar' => 'الاستشارات الهندسية', 'en' => 'Engineering Consulting'], 'description' => ['ar' => 'دراسات جدوى، إشراف هندسي، تقييم فني، وحلول لمشاكل التنفيذ بما يضمن أعلى كفاءة وأقل تكلفة.', 'en' => 'Feasibility studies, engineering supervision, technical assessment, and execution problem-solving for maximum efficiency and lower cost.']],
             ['icon' => 'brush', 'title' => ['ar' => 'الإكساء والديكور', 'en' => 'Finishing & Decor'], 'description' => ['ar' => 'أعمال إكساء داخلي وخارجي وديكورات عصرية باختيار دقيق للخامات والتشطيبات لإبراز هوية المكان.', 'en' => 'Interior and exterior finishing and modern decor with careful selection of materials and finishes to highlight the identity of the space.']],
+            ['icon' => 'factory', 'title' => ['ar' => 'تجهيز المعامل', 'en' => 'Factory & Plant Fit-out'], 'description' => ['ar' => 'تصميم وتجهيز المعامل والمنشآت الصناعية بالكامل: دراسة المخططات، توزيع خطوط الإنتاج، البنية التحتية والأعمال الكهروميكانيكية بكفاءة عالية.', 'en' => 'Complete design and fit-out of factories and industrial facilities: layout studies, production-line distribution, infrastructure and electromechanical works with high efficiency.']],
         ];
         foreach ($services as $i => $s) {
             Service::create($s + ['sort' => $i]);
