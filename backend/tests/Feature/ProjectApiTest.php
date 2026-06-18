@@ -41,7 +41,7 @@ class ProjectApiTest extends TestCase
 
         $this->postJson('/api/projects', $payload)
             ->assertCreated()
-            ->assertJsonPath('title.en', 'Project');
+            ->assertJsonPath('data.title.en', 'Project');
 
         $this->assertDatabaseCount('projects', 1);
     }
@@ -61,7 +61,7 @@ class ProjectApiTest extends TestCase
 
         $this->putJson("/api/projects/{$project->id}", ['year' => '2030'])
             ->assertOk()
-            ->assertJsonPath('year', '2030');
+            ->assertJsonPath('data.year', '2030');
     }
 
     public function test_admin_can_delete_project(): void
@@ -80,6 +80,6 @@ class ProjectApiTest extends TestCase
         Project::create(['title' => ['ar' => 'أ', 'en' => 'A'], 'category' => 'decor']);
         Project::create(['title' => ['ar' => 'ب', 'en' => 'B'], 'category' => 'buildings']);
 
-        $this->getJson('/api/projects')->assertOk()->assertJsonCount(2);
+        $this->getJson('/api/projects')->assertOk()->assertJsonCount(2, 'data');
     }
 }

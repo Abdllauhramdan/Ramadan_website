@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext.jsx'
 import { useLang } from '../context/LanguageContext.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
 import Icon from '../components/Icon.jsx'
-import { Text, Bi } from '../components/dashboard/fields.jsx'
+import { Text, Bi, ImageInput } from '../components/dashboard/fields.jsx'
 import { useSingleton, useCollection } from '../components/dashboard/hooks.js'
 
 const SECTIONS = [
@@ -96,7 +96,7 @@ function SettingsSection() {
       <h2>{t('sec_site')}</h2>
       <Bi label={t('your_name')} value={draft.name} onChange={(v) => setField('name', v)} />
       <Bi label="Tagline" value={draft.tagline} onChange={(v) => setField('tagline', v)} />
-      <Text label="Logo (path/URL)" value={draft.logo} dir="ltr" onChange={(v) => setField('logo', v)} />
+      <ImageInput label="Logo" value={draft.logo} folder="logo" onChange={(v) => setField('logo', v)} />
       <div className="grid grid-2">
         <Text label={t('phone')} value={draft.phone} dir="ltr" onChange={(v) => setField('phone', v)} />
         <Text label="WhatsApp (digits)" value={draft.whatsapp} dir="ltr" onChange={(v) => setField('whatsapp', v)} />
@@ -126,7 +126,7 @@ function HeroSection() {
       <Bi label="Badge" value={draft.badge} onChange={(v) => setField('badge', v)} />
       <Bi label="Title" value={draft.title} onChange={(v) => setField('title', v)} />
       <Bi label="Subtitle" area value={draft.subtitle} onChange={(v) => setField('subtitle', v)} />
-      <Text label="Background image (URL)" value={draft.image} dir="ltr" onChange={(v) => setField('image', v)} />
+      <ImageInput label="Background image" value={draft.image} folder="hero" onChange={(v) => setField('image', v)} />
       <div className="grid grid-2">
         <Bi label="Primary button" value={draft.cta_primary} onChange={(v) => setField('cta_primary', v)} />
         <Bi label="Secondary button" value={draft.cta_secondary} onChange={(v) => setField('cta_secondary', v)} />
@@ -148,7 +148,7 @@ function AboutSection() {
       <Bi label="Title" value={draft.title} onChange={(v) => setField('title', v)} />
       <Bi label="Lead" value={draft.lead} onChange={(v) => setField('lead', v)} />
       <Bi label="Body" area value={draft.body} onChange={(v) => setField('body', v)} />
-      <Text label="Image (URL)" value={draft.image} dir="ltr" onChange={(v) => setField('image', v)} />
+      <ImageInput label="Image" value={draft.image} folder="about" onChange={(v) => setField('image', v)} />
       <h3 className="sub-h">Points</h3>
       {points.map((p, i) => (
         <div key={p.id || i} className="list-item">
@@ -224,7 +224,6 @@ function ProjectsSection() {
       <h2>{t('sec_projects')}</h2>
       {items.map((p) => (
         <CollectionItem key={p.id} onSave={() => saveItem(p)} onDelete={() => remove(p.id)} saving={savingId === p.id}>
-          {p.image && <img src={p.image} alt="" className="edit-thumb" />}
           <Bi label="Title" value={p.title} onChange={(v) => patch(p.id, { title: v })} />
           <div className="grid grid-2">
             <div className="field">
@@ -237,7 +236,7 @@ function ProjectsSection() {
             </div>
             <Text label="Year" value={p.year} dir="ltr" onChange={(v) => patch(p.id, { year: v })} />
           </div>
-          <Text label="Image (URL)" value={p.image} dir="ltr" onChange={(v) => patch(p.id, { image: v })} />
+          <ImageInput label="Image" value={p.image} folder="projects" onChange={(v) => patch(p.id, { image: v })} />
           <Bi label={t('address')} value={p.location} onChange={(v) => patch(p.id, { location: v })} />
           <Bi label="Description" area value={p.description} onChange={(v) => patch(p.id, { description: v })} />
         </CollectionItem>

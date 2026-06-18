@@ -53,7 +53,11 @@ php artisan key:generate
 # اضبط قاعدة البيانات في .env (MySQL للإنتاج)، أو SQLite للتطوير السريع:
 #   DB_CONNECTION=sqlite  ثم:  touch database/database.sqlite
 
+# للتطوير المحلي اضبط APP_URL ليطابق عنوان السيرفر حتى تظهر روابط الصور المرفوعة:
+#   APP_URL=http://127.0.0.1:8000
+
 php artisan migrate --seed
+php artisan storage:link     # مهم: لإتاحة الصور المرفوعة عبر /storage
 php artisan serve            # http://127.0.0.1:8000
 ```
 
@@ -113,9 +117,26 @@ php artisan test              # يعمل على SQLite بالذاكرة
 3. ارفع محتويات `dist/` إلى مجلد الموقع الثابت (أو دومين فرعي للواجهة).
 
 > راجع `backend/.env.example` لإعدادات MySQL، و`config/cors.php` لتقييد المصادر
-> المسموح لها بالوصول إلى الـ API في الإنتاج.
+> المسموح لها بالوصول إلى الـ API في الإنتاج. لا تنسَ `php artisan storage:link`
+> على الاستضافة لإتاحة الصور المرفوعة، واضبط `APP_URL` على دومينك.
 
 ---
+
+## 🏗️ بنية الكود (Clean Architecture)
+
+الـ backend مبني بنمط طبقات واضح:
+
+- **`app/Services/`** — منطق العمل: `ContentService`, `AuthService`, خدمة لكل قسم،
+  و**`FileUploadService`** لرفع الصور بأمان (تحقق نوع/امتداد، أسماء عشوائية، منع
+  المسارات الخبيثة)، و**`ApiResponseService`** للردود الموحّدة.
+- **`app/Http/Requests/`** — التحقق من المدخلات (Form Requests) عبر `ApiFormRequest`.
+- **`app/Http/Controllers/Api/`** — تحكّمات رفيعة تستدعي الخدمات فقط.
+
+كل ردود الـ API بصيغة موحّدة:
+
+```json
+{ "status": "success", "message": "...", "data": { } }
+```
 
 ## 📡 ملخص واجهات الـ API
 
@@ -124,10 +145,16 @@ php artisan test              # يعمل على SQLite بالذاكرة
 | GET | `/api/content` | كل محتوى الموقع | لا |
 | POST | `/api/contact-messages` | إرسال رسالة تواصل | لا |
 | POST | `/api/login` | تسجيل الدخول (توكن) | لا |
+| POST | `/api/uploads` | رفع صورة وإرجاع رابطها | نعم |
 | GET/PUT | `/api/settings` · `/api/hero` · `/api/about` · `/api/contact-settings` | الأقسام المفردة | نعم |
 | CRUD | `/api/services` · `/api/projects` · `/api/stats` · `/api/why-us` | القوائم | نعم |
 | GET/PUT/DELETE | `/api/contact-messages` | إدارة الرسائل | نعم |
 | POST | `/api/change-password` | تغيير كلمة المرور | نعم |
+
+## 🖼️ الصور
+
+ارفع صور اللوغو/الهيرو/من نحن/الأعمال مباشرة من لوحة التحكم (زر «رفع صورة») —
+تُخزَّن في `storage/app/public` وتُعرض عبر `/storage`. أو الصق رابط صورة خارجي.
 
 ## 🖼️ استبدال اللوغو
 

@@ -3,42 +3,38 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\WhyUs;
-use Illuminate\Http\Request;
+use App\Http\Requests\WhyUsRequest;
+use App\Services\ApiResponseService;
+use App\Services\WhyUsService;
+use Illuminate\Http\JsonResponse;
 
 class WhyUsController extends Controller
 {
-    public function index()
+    public function __construct(protected WhyUsService $whyUsService) {}
+
+    public function index(): JsonResponse
     {
-        return response()->json(WhyUs::orderBy('sort')->get());
+        return ApiResponseService::success($this->whyUsService->list(), 'Why-us items retrieved successfully');
     }
 
-    public function store(Request $request)
+    public function store(WhyUsRequest $request): JsonResponse
     {
-        return response()->json(WhyUs::create($this->validated($request)), 201);
+        $whyUs = $this->whyUsService->create($request->validated());
+
+        return ApiResponseService::success($whyUs, 'Why-us item created successfully', 201);
     }
 
-    public function update(Request $request, WhyUs $whyUs)
+    public function update(WhyUsRequest $request, int $id): JsonResponse
     {
-        $whyUs->update($this->validated($request));
+        $whyUs = $this->whyUsService->update($request->validated(), $id);
 
-        return response()->json($whyUs);
+        return ApiResponseService::success($whyUs, 'Why-us item updated successfully');
     }
 
-    public function destroy(WhyUs $whyUs)
+    public function destroy(int $id): JsonResponse
     {
-        $whyUs->delete();
+        $this->whyUsService->delete($id);
 
-        return response()->json(['message' => 'Deleted']);
-    }
-
-    private function validated(Request $request): array
-    {
-        return $request->validate([
-            'icon' => ['nullable', 'string'],
-            'title' => ['nullable', 'array'],
-            'text' => ['nullable', 'array'],
-            'sort' => ['nullable', 'integer'],
-        ]);
+        return ApiResponseService::success(null, 'Why-us item deleted successfully');
     }
 }

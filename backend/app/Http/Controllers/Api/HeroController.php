@@ -3,30 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Hero;
-use Illuminate\Http\Request;
+use App\Http\Requests\HeroRequest;
+use App\Services\ApiResponseService;
+use App\Services\HeroService;
+use Illuminate\Http\JsonResponse;
 
 class HeroController extends Controller
 {
-    public function show()
+    public function __construct(protected HeroService $heroService) {}
+
+    public function show(): JsonResponse
     {
-        return response()->json(Hero::firstOrCreate(['id' => 1]));
+        return ApiResponseService::success($this->heroService->show(), 'Hero retrieved successfully');
     }
 
-    public function update(Request $request)
+    public function update(HeroRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'badge' => ['nullable', 'array'],
-            'title' => ['nullable', 'array'],
-            'subtitle' => ['nullable', 'array'],
-            'image' => ['nullable', 'string'],
-            'cta_primary' => ['nullable', 'array'],
-            'cta_secondary' => ['nullable', 'array'],
-        ]);
+        $hero = $this->heroService->update($request->validated());
 
-        $hero = Hero::firstOrCreate(['id' => 1]);
-        $hero->update($data);
-
-        return response()->json($hero);
+        return ApiResponseService::success($hero, 'Hero updated successfully');
     }
 }

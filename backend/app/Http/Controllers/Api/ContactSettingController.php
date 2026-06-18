@@ -3,26 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\ContactSetting;
-use Illuminate\Http\Request;
+use App\Http\Requests\ContactSettingRequest;
+use App\Services\ApiResponseService;
+use App\Services\ContactSettingService;
+use Illuminate\Http\JsonResponse;
 
 class ContactSettingController extends Controller
 {
-    public function show()
+    public function __construct(protected ContactSettingService $contactSettingService) {}
+
+    public function show(): JsonResponse
     {
-        return response()->json(ContactSetting::firstOrCreate(['id' => 1]));
+        return ApiResponseService::success($this->contactSettingService->show(), 'Contact settings retrieved successfully');
     }
 
-    public function update(Request $request)
+    public function update(ContactSettingRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'title' => ['nullable', 'array'],
-            'subtitle' => ['nullable', 'array'],
-        ]);
+        $contact = $this->contactSettingService->update($request->validated());
 
-        $contact = ContactSetting::firstOrCreate(['id' => 1]);
-        $contact->update($data);
-
-        return response()->json($contact);
+        return ApiResponseService::success($contact, 'Contact settings updated successfully');
     }
 }

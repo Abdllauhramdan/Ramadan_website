@@ -14,18 +14,22 @@ class ContentApiTest extends TestCase
     {
         $this->seed(DatabaseSeeder::class);
 
-        $response = $this->getJson('/api/content');
-
-        $response->assertOk()
+        $this->getJson('/api/content')
+            ->assertOk()
+            ->assertJsonPath('status', 'success')
             ->assertJsonStructure([
-                'site' => ['name' => ['ar', 'en'], 'phone', 'whatsapp', 'email', 'workingHours', 'social'],
-                'hero' => ['title' => ['ar', 'en'], 'image', 'ctaPrimary', 'ctaSecondary'],
-                'about' => ['title', 'body', 'points'],
-                'contact' => ['title', 'subtitle'],
-                'stats' => [['id', 'value', 'label']],
-                'services' => [['id', 'icon', 'title', 'description']],
-                'projects' => [['id', 'title', 'category', 'image', 'location']],
-                'whyUs' => [['id', 'icon', 'title', 'text']],
+                'status',
+                'message',
+                'data' => [
+                    'site' => ['name' => ['ar', 'en'], 'phone', 'whatsapp', 'email', 'workingHours', 'social'],
+                    'hero' => ['title' => ['ar', 'en'], 'image', 'ctaPrimary', 'ctaSecondary'],
+                    'about' => ['title', 'body', 'points'],
+                    'contact' => ['title', 'subtitle'],
+                    'stats' => [['id', 'value', 'label']],
+                    'services' => [['id', 'icon', 'title', 'description']],
+                    'projects' => [['id', 'title', 'category', 'image', 'location']],
+                    'whyUs' => [['id', 'icon', 'title', 'text']],
+                ],
             ]);
     }
 
@@ -34,9 +38,9 @@ class ContentApiTest extends TestCase
         $this->seed(DatabaseSeeder::class);
 
         $this->getJson('/api/content')
-            ->assertJsonPath('site.name.ar', 'RAMADAN')
-            ->assertJsonPath('site.name.en', 'RAMADAN')
-            ->assertJsonPath('services.0.title.en', 'Engineering & Design');
+            ->assertJsonPath('data.site.name.ar', 'RAMADAN')
+            ->assertJsonPath('data.site.name.en', 'RAMADAN')
+            ->assertJsonPath('data.services.0.title.en', 'Engineering & Design');
     }
 
     public function test_content_is_publicly_accessible_without_auth(): void

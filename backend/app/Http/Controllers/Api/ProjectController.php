@@ -3,47 +3,38 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Project;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProjectRequest;
+use App\Services\ApiResponseService;
+use App\Services\ProjectService;
+use Illuminate\Http\JsonResponse;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function __construct(protected ProjectService $projectService) {}
+
+    public function index(): JsonResponse
     {
-        return response()->json(Project::orderBy('sort')->get());
+        return ApiResponseService::success($this->projectService->list(), 'Projects retrieved successfully');
     }
 
-    public function store(Request $request)
+    public function store(ProjectRequest $request): JsonResponse
     {
-        $project = Project::create($this->validated($request));
+        $project = $this->projectService->create($request->validated());
 
-        return response()->json($project, 201);
+        return ApiResponseService::success($project, 'Project created successfully', 201);
     }
 
-    public function update(Request $request, Project $project)
+    public function update(ProjectRequest $request, int $id): JsonResponse
     {
-        $project->update($this->validated($request));
+        $project = $this->projectService->update($request->validated(), $id);
 
-        return response()->json($project);
+        return ApiResponseService::success($project, 'Project updated successfully');
     }
 
-    public function destroy(Project $project)
+    public function destroy(int $id): JsonResponse
     {
-        $project->delete();
+        $this->projectService->delete($id);
 
-        return response()->json(['message' => 'Deleted']);
-    }
-
-    private function validated(Request $request): array
-    {
-        return $request->validate([
-            'title' => ['nullable', 'array'],
-            'category' => ['nullable', 'string', 'in:buildings,decor,designs'],
-            'image' => ['nullable', 'string'],
-            'year' => ['nullable', 'string'],
-            'location' => ['nullable', 'array'],
-            'description' => ['nullable', 'array'],
-            'sort' => ['nullable', 'integer'],
-        ]);
+        return ApiResponseService::success(null, 'Project deleted successfully');
     }
 }

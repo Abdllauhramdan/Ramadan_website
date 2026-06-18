@@ -3,41 +3,38 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Stat;
-use Illuminate\Http\Request;
+use App\Http\Requests\StatRequest;
+use App\Services\ApiResponseService;
+use App\Services\StatService;
+use Illuminate\Http\JsonResponse;
 
 class StatController extends Controller
 {
-    public function index()
+    public function __construct(protected StatService $statService) {}
+
+    public function index(): JsonResponse
     {
-        return response()->json(Stat::orderBy('sort')->get());
+        return ApiResponseService::success($this->statService->list(), 'Stats retrieved successfully');
     }
 
-    public function store(Request $request)
+    public function store(StatRequest $request): JsonResponse
     {
-        return response()->json(Stat::create($this->validated($request)), 201);
+        $stat = $this->statService->create($request->validated());
+
+        return ApiResponseService::success($stat, 'Stat created successfully', 201);
     }
 
-    public function update(Request $request, Stat $stat)
+    public function update(StatRequest $request, int $id): JsonResponse
     {
-        $stat->update($this->validated($request));
+        $stat = $this->statService->update($request->validated(), $id);
 
-        return response()->json($stat);
+        return ApiResponseService::success($stat, 'Stat updated successfully');
     }
 
-    public function destroy(Stat $stat)
+    public function destroy(int $id): JsonResponse
     {
-        $stat->delete();
+        $this->statService->delete($id);
 
-        return response()->json(['message' => 'Deleted']);
-    }
-
-    private function validated(Request $request): array
-    {
-        return $request->validate([
-            'value' => ['nullable', 'string'],
-            'label' => ['nullable', 'array'],
-            'sort' => ['nullable', 'integer'],
-        ]);
+        return ApiResponseService::success(null, 'Stat deleted successfully');
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\StatController;
+use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\WhyUsController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,9 +29,13 @@ Route::post('/login', [AuthController::class, 'login']);
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth:sanctum')->group(function () {
+    // Account
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/change-password', [AuthController::class, 'changePassword']);
+
+    // Image uploads
+    Route::post('/uploads', [UploadController::class, 'store']);
 
     // Singleton sections
     Route::get('/settings', [SettingController::class, 'show']);
@@ -42,16 +47,32 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/contact-settings', [ContactSettingController::class, 'show']);
     Route::put('/contact-settings', [ContactSettingController::class, 'update']);
 
-    // Collections
-    Route::apiResource('services', ServiceController::class)->except(['show']);
-    Route::apiResource('projects', ProjectController::class)->except(['show']);
-    Route::apiResource('stats', StatController::class)->except(['show']);
-    Route::apiResource('why-us', WhyUsController::class)
-        ->parameters(['why-us' => 'whyUs'])
-        ->except(['show']);
+    // Services
+    Route::get('/services', [ServiceController::class, 'index']);
+    Route::post('/services', [ServiceController::class, 'store']);
+    Route::put('/services/{id}', [ServiceController::class, 'update']);
+    Route::delete('/services/{id}', [ServiceController::class, 'destroy']);
 
-    // Contact submissions management
+    // Projects
+    Route::get('/projects', [ProjectController::class, 'index']);
+    Route::post('/projects', [ProjectController::class, 'store']);
+    Route::put('/projects/{id}', [ProjectController::class, 'update']);
+    Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+
+    // Stats
+    Route::get('/stats', [StatController::class, 'index']);
+    Route::post('/stats', [StatController::class, 'store']);
+    Route::put('/stats/{id}', [StatController::class, 'update']);
+    Route::delete('/stats/{id}', [StatController::class, 'destroy']);
+
+    // Why-us
+    Route::get('/why-us', [WhyUsController::class, 'index']);
+    Route::post('/why-us', [WhyUsController::class, 'store']);
+    Route::put('/why-us/{id}', [WhyUsController::class, 'update']);
+    Route::delete('/why-us/{id}', [WhyUsController::class, 'destroy']);
+
+    // Contact messages management
     Route::get('/contact-messages', [ContactMessageController::class, 'index']);
-    Route::put('/contact-messages/{message}', [ContactMessageController::class, 'update']);
-    Route::delete('/contact-messages/{message}', [ContactMessageController::class, 'destroy']);
+    Route::put('/contact-messages/{id}', [ContactMessageController::class, 'update']);
+    Route::delete('/contact-messages/{id}', [ContactMessageController::class, 'destroy']);
 });

@@ -3,52 +3,43 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\ContactMessage;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreContactMessageRequest;
+use App\Http\Requests\UpdateContactMessageRequest;
+use App\Services\ApiResponseService;
+use App\Services\ContactMessageService;
+use Illuminate\Http\JsonResponse;
 
 class ContactMessageController extends Controller
 {
-    /** Public: store a contact form submission. */
-    public function store(Request $request)
+    public function __construct(protected ContactMessageService $contactMessageService) {}
+
+    /** Public: submit a contact message. */
+    public function store(StoreContactMessageRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:50'],
-            'subject' => ['nullable', 'string', 'max:255'],
-            'message' => ['required', 'string'],
-        ]);
+        $message = $this->contactMessageService->store($request->validated());
 
-        $message = ContactMessage::create($data);
-
-        return response()->json([
-            'message' => 'Received',
-            'id' => $message->id,
-        ], 201);
+        return ApiResponseService::success(['id' => $message->id], 'Message sent successfully', 201);
     }
 
-    /** Admin: list submissions (newest first). */
-    public function index()
+    /** Admin: list messages. */
+    public function index(): JsonResponse
     {
-        return response()->json(ContactMessage::latest()->get());
+        return ApiResponseService::success($this->contactMessageService->list(), 'Messages retrieved successfully');
     }
 
-    /** Admin: mark a message read/unread. */
-    public function update(Request $request, ContactMessage $message)
+    /** Admin: mark read/unread. */
+    public function update(UpdateContactMessageRequest $request, int $id): JsonResponse
     {
-        $data = $request->validate([
-            'is_read' => ['required', 'boolean'],
-        ]);
-        $message->update($data);
+        $message = $this->contactMessageService->updateStatus($request->validated()['is_read'], $id);
 
-        return response()->json($message);
+        return ApiResponseService::success($message, 'Message updated successfully');
     }
 
     /** Admin: delete a message. */
-    public function destroy(ContactMessage $message)
+    public function destroy(int $id): JsonResponse
     {
-        $message->delete();
+        $this->contactMessageService->delete($id);
 
-        return response()->json(['message' => 'Deleted']);
+        return ApiResponseService::success(null, 'Message deleted successfully');
     }
 }

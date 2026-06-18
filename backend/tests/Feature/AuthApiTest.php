@@ -28,7 +28,9 @@ class AuthApiTest extends TestCase
         $this->postJson('/api/login', [
             'email' => 'admin@ramadan-eng.com',
             'password' => 'ramadan2026',
-        ])->assertOk()->assertJsonStructure(['token', 'user' => ['name', 'email']]);
+        ])->assertOk()
+            ->assertJsonPath('status', 'success')
+            ->assertJsonStructure(['data' => ['token', 'user' => ['name', 'email']]]);
     }
 
     public function test_login_with_invalid_credentials_fails(): void
@@ -38,7 +40,14 @@ class AuthApiTest extends TestCase
         $this->postJson('/api/login', [
             'email' => 'admin@ramadan-eng.com',
             'password' => 'wrong',
-        ])->assertStatus(422);
+        ])->assertStatus(401)->assertJsonPath('status', 'error');
+    }
+
+    public function test_login_validation_errors_use_envelope(): void
+    {
+        $this->postJson('/api/login', [])
+            ->assertStatus(422)
+            ->assertJsonPath('status', 'error');
     }
 
     public function test_protected_route_requires_authentication(): void
@@ -53,7 +62,7 @@ class AuthApiTest extends TestCase
 
         $this->getJson('/api/me')
             ->assertOk()
-            ->assertJsonPath('email', 'admin@ramadan-eng.com');
+            ->assertJsonPath('data.email', 'admin@ramadan-eng.com');
     }
 
     public function test_change_password_requires_correct_current_password(): void

@@ -90,6 +90,9 @@ export const ui = {
     dash_delete: 'حذف',
     dash_arabic: 'العربية',
     dash_english: 'الإنجليزية',
+    upload_image: 'رفع صورة',
+    remove_image: 'إزالة',
+    upload_failed: 'فشل رفع الصورة',
 
     // dashboard sections
     sec_site: 'إعدادات الموقع',
@@ -196,6 +199,9 @@ export const ui = {
     dash_delete: 'Delete',
     dash_arabic: 'Arabic',
     dash_english: 'English',
+    upload_image: 'Upload image',
+    remove_image: 'Remove',
+    upload_failed: 'Image upload failed',
 
     sec_site: 'Site Settings',
     sec_hero: 'Hero Section',

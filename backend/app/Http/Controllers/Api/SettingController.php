@@ -3,33 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Setting;
-use Illuminate\Http\Request;
+use App\Http\Requests\SettingRequest;
+use App\Services\ApiResponseService;
+use App\Services\SettingService;
+use Illuminate\Http\JsonResponse;
 
 class SettingController extends Controller
 {
-    public function show()
+    public function __construct(protected SettingService $settingService) {}
+
+    public function show(): JsonResponse
     {
-        return response()->json(Setting::firstOrCreate(['id' => 1]));
+        return ApiResponseService::success($this->settingService->show(), 'Settings retrieved successfully');
     }
 
-    public function update(Request $request)
+    public function update(SettingRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'name' => ['nullable', 'array'],
-            'tagline' => ['nullable', 'array'],
-            'logo' => ['nullable', 'string'],
-            'phone' => ['nullable', 'string'],
-            'whatsapp' => ['nullable', 'string'],
-            'email' => ['nullable', 'string'],
-            'address' => ['nullable', 'array'],
-            'working_hours' => ['nullable', 'array'],
-            'social' => ['nullable', 'array'],
-        ]);
+        $setting = $this->settingService->update($request->validated());
 
-        $setting = Setting::firstOrCreate(['id' => 1]);
-        $setting->update($data);
-
-        return response()->json($setting);
+        return ApiResponseService::success($setting, 'Settings updated successfully');
     }
 }

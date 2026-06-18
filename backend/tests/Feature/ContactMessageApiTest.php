@@ -18,7 +18,7 @@ class ContactMessageApiTest extends TestCase
             'name' => 'Ahmad',
             'email' => 'ahmad@example.com',
             'message' => 'I need a consultation',
-        ])->assertCreated();
+        ])->assertCreated()->assertJsonPath('status', 'success');
 
         $this->assertDatabaseHas('contact_messages', ['name' => 'Ahmad']);
     }
@@ -27,7 +27,7 @@ class ContactMessageApiTest extends TestCase
     {
         $this->postJson('/api/contact-messages', ['email' => 'a@b.com'])
             ->assertStatus(422)
-            ->assertJsonValidationErrors(['name', 'message']);
+            ->assertJsonPath('status', 'error');
     }
 
     public function test_guest_cannot_list_messages(): void
@@ -43,11 +43,11 @@ class ContactMessageApiTest extends TestCase
 
         $msg = ContactMessage::create(['name' => 'Sara', 'message' => 'Hi']);
 
-        $this->getJson('/api/contact-messages')->assertOk()->assertJsonCount(1);
+        $this->getJson('/api/contact-messages')->assertOk()->assertJsonCount(1, 'data');
 
         $this->putJson("/api/contact-messages/{$msg->id}", ['is_read' => true])
             ->assertOk()
-            ->assertJsonPath('is_read', true);
+            ->assertJsonPath('data.is_read', true);
 
         $this->deleteJson("/api/contact-messages/{$msg->id}")->assertOk();
         $this->assertDatabaseCount('contact_messages', 0);

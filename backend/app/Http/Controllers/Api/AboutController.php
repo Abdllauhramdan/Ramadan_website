@@ -3,29 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\About;
-use Illuminate\Http\Request;
+use App\Http\Requests\AboutRequest;
+use App\Services\AboutService;
+use App\Services\ApiResponseService;
+use Illuminate\Http\JsonResponse;
 
 class AboutController extends Controller
 {
-    public function show()
+    public function __construct(protected AboutService $aboutService) {}
+
+    public function show(): JsonResponse
     {
-        return response()->json(About::firstOrCreate(['id' => 1]));
+        return ApiResponseService::success($this->aboutService->show(), 'About retrieved successfully');
     }
 
-    public function update(Request $request)
+    public function update(AboutRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'title' => ['nullable', 'array'],
-            'lead' => ['nullable', 'array'],
-            'body' => ['nullable', 'array'],
-            'image' => ['nullable', 'string'],
-            'points' => ['nullable', 'array'],
-        ]);
+        $about = $this->aboutService->update($request->validated());
 
-        $about = About::firstOrCreate(['id' => 1]);
-        $about->update($data);
-
-        return response()->json($about);
+        return ApiResponseService::success($about, 'About updated successfully');
     }
 }

@@ -3,44 +3,38 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Service;
-use Illuminate\Http\Request;
+use App\Http\Requests\ServiceRequest;
+use App\Services\ApiResponseService;
+use App\Services\ServiceService;
+use Illuminate\Http\JsonResponse;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function __construct(protected ServiceService $serviceService) {}
+
+    public function index(): JsonResponse
     {
-        return response()->json(Service::orderBy('sort')->get());
+        return ApiResponseService::success($this->serviceService->list(), 'Services retrieved successfully');
     }
 
-    public function store(Request $request)
+    public function store(ServiceRequest $request): JsonResponse
     {
-        $service = Service::create($this->validated($request));
+        $service = $this->serviceService->create($request->validated());
 
-        return response()->json($service, 201);
+        return ApiResponseService::success($service, 'Service created successfully', 201);
     }
 
-    public function update(Request $request, Service $service)
+    public function update(ServiceRequest $request, int $id): JsonResponse
     {
-        $service->update($this->validated($request));
+        $service = $this->serviceService->update($request->validated(), $id);
 
-        return response()->json($service);
+        return ApiResponseService::success($service, 'Service updated successfully');
     }
 
-    public function destroy(Service $service)
+    public function destroy(int $id): JsonResponse
     {
-        $service->delete();
+        $this->serviceService->delete($id);
 
-        return response()->json(['message' => 'Deleted']);
-    }
-
-    private function validated(Request $request): array
-    {
-        return $request->validate([
-            'icon' => ['nullable', 'string'],
-            'title' => ['nullable', 'array'],
-            'description' => ['nullable', 'array'],
-            'sort' => ['nullable', 'integer'],
-        ]);
+        return ApiResponseService::success(null, 'Service deleted successfully');
     }
 }

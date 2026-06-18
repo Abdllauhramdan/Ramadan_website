@@ -3,71 +3,55 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\LoginRequest;
+use App\Services\ApiResponseService;
+use App\Services\AuthService;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    /** Issue a Sanctum token for valid admin credentials. */
-    public function login(Request $request)
+    public function __construct(protected AuthService $authService) {}
+
+    public function login(LoginRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
-        ]);
+        try {
+            $result = $this->authService->login($request->validated());
 
-        $user = User::where('email', $data['email'])->first();
-
-        if (! $user || ! Hash::check($data['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+            return ApiResponseService::success($result, 'Logged in successfully');
+        } catch (Exception $e) {
+            return ApiResponseService::error($e->getMessage(), $e->getCode() ?: 401);
         }
-
-        $token = $user->createToken('dashboard')->plainTextToken;
-
-        return response()->json([
-            'token' => $token,
-            'user' => ['name' => $user->name, 'email' => $user->email],
-        ]);
     }
 
-    /** Current authenticated admin. */
-    public function me(Request $request)
+    public function me(Request $request): JsonResponse
     {
-        return response()->json([
-            'name' => $request->user()->name,
-            'email' => $request->user()->email,
-        ]);
-    }
-
-    /** Revoke the current access token. */
-    public function logout(Request $request)
-    {
-        $request->user()->currentAccessToken()->delete();
-
-        return response()->json(['message' => 'Logged out']);
-    }
-
-    /** Change the authenticated admin's password. */
-    public function changePassword(Request $request)
-    {
-        $data = $request->validate([
-            'current_password' => ['required', 'string'],
-            'new_password' => ['required', 'string', 'min:6'],
-        ]);
-
         $user = $request->user();
-        if (! Hash::check($data['current_password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'current_password' => ['Current password is incorrect.'],
-            ]);
+
+        return ApiResponseService::success(
+            ['name' => $user->name, 'email' => $user->email],
+            'User retrieved successfully'
+        );
+    }
+
+    public function logout(Request $request): JsonResponse
+    {
+        $this->authService->logout($request->user());
+
+        return ApiResponseService::success(null, 'Logged out successfully');
+    }
+
+    public function changePassword(ChangePasswordRequest $request): JsonResponse
+    {
+        try {
+            $data = $request->validated();
+            $this->authService->changePassword($request->user(), $data['current_password'], $data['new_password']);
+
+            return ApiResponseService::success(null, 'Password changed successfully');
+        } catch (Exception $e) {
+            return ApiResponseService::error($e->getMessage(), $e->getCode() ?: 422);
         }
-
-        $user->update(['password' => Hash::make($data['new_password'])]);
-
-        return response()->json(['message' => 'Password updated']);
     }
 }
