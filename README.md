@@ -98,6 +98,10 @@ php artisan test              # يعمل على SQLite بالذاكرة
 ## 🌍 النشر / Deployment (cPanel أو أي استضافة PHP + MySQL)
 
 > ⚠️ النظام ليس static — يحتاج استضافة تدعم **PHP 8.2+** و**MySQL**.
+>
+> 📘 **دليل مفصّل خطوة بخطوة لرفع كل شيء على استضافة cPanel واحدة (دومين واحد):
+> راجع [`DEPLOYMENT.md`](DEPLOYMENT.md)** — Laravel يقدّم الواجهة والـ API معاً.
+> (ملاحظة: GitHub Pages يصلح للواجهة فقط ولا يشغّل الـ backend.)
 
 ### Backend
 1. ارفع مجلد `backend/` خارج `public_html` إن أمكن.
