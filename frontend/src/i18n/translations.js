@@ -93,6 +93,7 @@ export const ui = {
     upload_image: 'رفع صورة',
     remove_image: 'إزالة',
     upload_failed: 'فشل رفع الصورة',
+    cover_image: 'الغلاف',
 
     // dashboard sections
     sec_site: 'إعدادات الموقع',
@@ -202,6 +203,7 @@ export const ui = {
     upload_image: 'Upload image',
     remove_image: 'Remove',
     upload_failed: 'Image upload failed',
+    cover_image: 'Cover',
 
     sec_site: 'Site Settings',
     sec_hero: 'Hero Section',

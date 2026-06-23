@@ -77,6 +77,7 @@ class ContentService
                 'title' => $p->title,
                 'category' => $p->category,
                 'image' => $p->image,
+                'images' => $p->images ?: ($p->image ? [$p->image] : []),
                 'year' => $p->year,
                 'location' => $p->location,
                 'description' => $p->description,

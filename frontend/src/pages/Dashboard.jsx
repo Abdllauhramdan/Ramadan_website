@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext.jsx'
 import { useLang } from '../context/LanguageContext.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
 import Icon from '../components/Icon.jsx'
-import { Text, Bi, ImageInput } from '../components/dashboard/fields.jsx'
+import { Text, Bi, ImageInput, MultiImageInput } from '../components/dashboard/fields.jsx'
 import { useSingleton, useCollection } from '../components/dashboard/hooks.js'
 
 const SECTIONS = [
@@ -236,12 +236,17 @@ function ProjectsSection() {
             </div>
             <Text label="Year" value={p.year} dir="ltr" onChange={(v) => patch(p.id, { year: v })} />
           </div>
-          <ImageInput label="Image" value={p.image} folder="projects" onChange={(v) => patch(p.id, { image: v })} />
+          <MultiImageInput
+            label="Gallery (first = cover)"
+            value={p.images}
+            folder="projects"
+            onChange={(imgs) => patch(p.id, { images: imgs, image: imgs[0] || '' })}
+          />
           <Bi label={t('address')} value={p.location} onChange={(v) => patch(p.id, { location: v })} />
           <Bi label="Description" area value={p.description} onChange={(v) => patch(p.id, { description: v })} />
         </CollectionItem>
       ))}
-      <button className="btn btn-ghost" onClick={() => add({ title: { ar: '', en: '' }, category: 'buildings', image: '', year: '', location: { ar: '', en: '' }, description: { ar: '', en: '' } })}>
+      <button className="btn btn-ghost" onClick={() => add({ title: { ar: '', en: '' }, category: 'decor', image: '', images: [], year: '', location: { ar: '', en: '' }, description: { ar: '', en: '' } })}>
         + {t('dash_add')}
       </button>
     </section>

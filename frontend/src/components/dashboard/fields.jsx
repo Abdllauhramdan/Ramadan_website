@@ -76,6 +76,54 @@ export function ImageInput({ label, value, onChange, folder = 'images' }) {
   )
 }
 
+// Manage a gallery: an array of image URLs (upload to append, click ✕ to remove).
+export function MultiImageInput({ label, value, onChange, folder = 'projects' }) {
+  const { t } = useLang()
+  const fileRef = useRef(null)
+  const [busy, setBusy] = useState(false)
+  const list = Array.isArray(value) ? value : []
+
+  const pick = async (e) => {
+    const files = Array.from(e.target.files || [])
+    if (!files.length) return
+    setBusy(true)
+    try {
+      const urls = []
+      for (const file of files) {
+        const { url } = await api.upload(file, folder)
+        urls.push(url)
+      }
+      onChange([...list, ...urls])
+    } catch {
+      alert(t('upload_failed'))
+    } finally {
+      setBusy(false)
+      e.target.value = ''
+    }
+  }
+
+  const removeAt = (i) => onChange(list.filter((_, idx) => idx !== i))
+
+  return (
+    <div className="image-input">
+      {label && <label>{label}</label>}
+      <div className="multi-grid">
+        {list.map((src, i) => (
+          <div key={i} className="multi-item">
+            <img src={src} alt="" />
+            <button type="button" className="multi-remove" onClick={() => removeAt(i)} aria-label="remove">✕</button>
+            {i === 0 && <span className="multi-cover">{t('cover_image')}</span>}
+          </div>
+        ))}
+        <button type="button" className="multi-add" disabled={busy} onClick={() => fileRef.current?.click()}>
+          {busy ? '…' : '+'}
+        </button>
+      </div>
+      <input ref={fileRef} type="file" accept="image/*" multiple hidden onChange={pick} />
+    </div>
+  )
+}
+
 // Bilingual (Arabic + English) pair for a { ar, en } object
 export function Bi({ label, value, onChange, area }) {
   const { t } = useLang()

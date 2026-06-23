@@ -12,5 +12,6 @@ class Project extends Model
         'title' => 'array',
         'location' => 'array',
         'description' => 'array',
+        'images' => 'array',
     ];
 }

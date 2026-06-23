@@ -109,11 +109,38 @@ class DatabaseSeeder extends Seeder
 
         // ----- Projects -----
         $projects = [
-            ['title' => ['ar' => 'تصميم صالة عرض ذهب ومجوهرات', 'en' => 'Gold & Jewelry Showroom'], 'category' => 'decor', 'image' => '/projects/gold-showroom.jpg', 'year' => '2024', 'location' => ['ar' => 'دمشق', 'en' => 'Damascus'], 'description' => ['ar' => 'تصميم وتنفيذ صالة عرض فاخرة بخامات الأونيكس المضيء واللمسات الذهبية وإضاءة مدروسة تُبرز رقي المعروضات.', 'en' => 'Design and fit-out of a luxurious showroom with backlit onyx surfaces, gold accents and refined lighting that elevates the displays.']],
-            ['title' => ['ar' => 'غرفة نوم رئيسية عصرية', 'en' => 'Modern Master Bedroom'], 'category' => 'decor', 'image' => '/projects/master-bedroom.jpg', 'year' => '2024', 'location' => ['ar' => 'دمشق', 'en' => 'Damascus'], 'description' => ['ar' => 'ديكور غرفة نوم رئيسية بطابع عصري هادئ، يمزج الأقمشة الرمادية مع لمسات تركوازية وخزائن مكسوّة وإضاءة دافئة.', 'en' => 'A calm, modern master bedroom blending grey upholstery with teal accents, fabric-clad wardrobes and warm lighting.']],
-            ['title' => ['ar' => 'غرفة نوم بخامات وإضاءة فاخرة', 'en' => 'Bedroom with Premium Materials & Lighting'], 'category' => 'decor', 'image' => '/projects/bedroom-marble.jpg', 'year' => '2024', 'location' => ['ar' => 'دمشق', 'en' => 'Damascus'], 'description' => ['ar' => 'تصميم داخلي يجمع الرخام المضيء والخشب الطبيعي وأثاثاً مخصصاً مع توزيع إضاءة يمنح إحساساً بالدفء والفخامة.', 'en' => 'Interior design combining backlit marble, natural wood and custom furniture with a lighting layout that feels warm and elegant.']],
-            ['title' => ['ar' => 'ركن تسريحة وديكور غرفة نوم', 'en' => 'Vanity Corner & Bedroom Decor'], 'category' => 'decor', 'image' => '/projects/dresser-corner.jpg', 'year' => '2025', 'location' => ['ar' => 'دمشق', 'en' => 'Damascus'], 'description' => ['ar' => 'ركن تسريحة أنيق مع ستائر متدرجة ومرايا وإضاءة خطية، ضمن تناغم لوني راقٍ يعزز الراحة والجمال.', 'en' => 'An elegant vanity corner with layered curtains, mirrors and linear lighting in a refined palette that balances comfort and beauty.']],
-            ['title' => ['ar' => 'غرفة نوم بطراز معاصر', 'en' => 'Contemporary Bedroom Suite'], 'category' => 'decor', 'image' => '/projects/teal-bedroom.jpg', 'year' => '2025', 'location' => ['ar' => 'دمشق', 'en' => 'Damascus'], 'description' => ['ar' => 'غرفة نوم معاصرة بصدر سرير منجّد بالتركواز وجدران مرايا وخامات حديثة تمنح المكان عمقاً وأناقة.', 'en' => 'A contemporary bedroom with a teal upholstered headboard, mirrored walls and modern materials that add depth and elegance.']],
+            [
+                'title' => ['ar' => 'تصميم صالة عرض ذهب ومجوهرات', 'en' => 'Gold & Jewelry Showroom'],
+                'category' => 'decor', 'year' => '2024',
+                'location' => ['ar' => 'دمشق', 'en' => 'Damascus'],
+                'image' => '/projects/showroom-1.jpg',
+                'images' => ['/projects/showroom-1.jpg'],
+                'description' => ['ar' => 'تصميم وتنفيذ صالة عرض فاخرة بخامات الأونيكس المضيء واللمسات الذهبية وإضاءة مدروسة تُبرز رقي المعروضات.', 'en' => 'Design and fit-out of a luxurious showroom with backlit onyx surfaces, gold accents and refined lighting that elevates the displays.'],
+            ],
+            [
+                'title' => ['ar' => 'غرفة نوم رئيسية عصرية', 'en' => 'Modern Master Bedroom'],
+                'category' => 'decor', 'year' => '2024',
+                'location' => ['ar' => 'دمشق', 'en' => 'Damascus'],
+                'image' => '/projects/bedroom-1.jpg',
+                'images' => ['/projects/bedroom-1.jpg', '/projects/bedroom-2.jpg', '/projects/bedroom-3.jpg', '/projects/bedroom-4.jpg'],
+                'description' => ['ar' => 'ديكور غرفة نوم رئيسية بطابع عصري هادئ، يمزج الأقمشة الرمادية مع لمسات تركوازية، صدر سرير منجّد، رخام مضيء، وركن تسريحة أنيق بإضاءة دافئة.', 'en' => 'A calm, modern master bedroom blending grey upholstery with teal accents, an upholstered headboard, backlit marble and an elegant vanity corner with warm lighting.'],
+            ],
+            [
+                'title' => ['ar' => 'استقبال ومكاتب شركة', 'en' => 'Company Reception & Offices'],
+                'category' => 'decor', 'year' => '2024',
+                'location' => ['ar' => 'دمشق', 'en' => 'Damascus'],
+                'image' => '/projects/office-1.jpg',
+                'images' => ['/projects/office-1.jpg', '/projects/office-2.jpg', '/projects/office-3.jpg', '/projects/office-4.jpg', '/projects/office-5.jpg'],
+                'description' => ['ar' => 'تصميم منطقة استقبال ومكاتب بطابع راقٍ يجمع الخشب الطبيعي والرخام والإضاءة الذهبية، مع مكتب استقبال مميّز وجدار شعار يعكس هوية الشركة.', 'en' => 'An upscale reception and office area combining natural wood, marble and golden lighting, with a signature reception desk and a logo wall that reflects the company identity.'],
+            ],
+            [
+                'title' => ['ar' => 'تصميم صيدلية', 'en' => 'Pharmacy Interior Design'],
+                'category' => 'decor', 'year' => '2025',
+                'location' => ['ar' => 'دمشق', 'en' => 'Damascus'],
+                'image' => '/projects/pharmacy-1.jpg',
+                'images' => ['/projects/pharmacy-1.jpg', '/projects/pharmacy-2.jpg', '/projects/pharmacy-3.jpg', '/projects/pharmacy-4.jpg', '/projects/pharmacy-5.jpg', '/projects/pharmacy-6.jpg', '/projects/pharmacy-7.jpg'],
+                'description' => ['ar' => 'تصميم صيدلية بهوية لونية هادئة (الأبيض والأخضر الزيتي) مع رفوف مقوّسة بإطارات ذهبية وإضاءة مدمجة وواجهة جذّابة تمنح تجربة عرض مريحة وأنيقة.', 'en' => 'A pharmacy designed in a calm white-and-olive palette with arched, gold-trimmed shelving, integrated lighting and an attractive storefront that delivers a comfortable, elegant display experience.'],
+            ],
         ];
         foreach ($projects as $i => $p) {
             Project::create($p + ['sort' => $i]);
