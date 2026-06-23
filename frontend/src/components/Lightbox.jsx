@@ -12,6 +12,7 @@ export default function Lightbox({ project, onClose }) {
   const prev = useCallback(() => setIndex((i) => (i - 1 + images.length) % images.length), [images.length])
 
   useEffect(() => {
+    if (!project) return
     const onKey = (e) => {
       if (e.key === 'Escape') onClose()
       else if (e.key === 'ArrowRight') isRTL ? prev() : next()
@@ -23,7 +24,7 @@ export default function Lightbox({ project, onClose }) {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
     }
-  }, [next, prev, onClose, isRTL])
+  }, [project, next, prev, onClose, isRTL])
 
   if (!project) return null
 

@@ -53,7 +53,7 @@ export default function Projects() {
         </div>
       </section>
 
-      <Lightbox project={active} onClose={() => setActive(null)} />
+      {active && <Lightbox project={active} onClose={() => setActive(null)} />}
     </>
   )
 }
