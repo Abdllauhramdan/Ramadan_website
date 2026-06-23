@@ -28,28 +28,28 @@ class DatabaseSeeder extends Seeder
         Setting::updateOrCreate(['id' => 1], [
             'name' => ['ar' => 'RAMADAN', 'en' => 'RAMADAN'],
             'tagline' => [
-                'ar' => 'مكتب هندسي للهندسة والاستشارات والإكساء',
-                'en' => 'Engineering, Consulting & Finishing Office',
+                'ar' => 'هندسة • استشارات • إكساء • تجهيز معامل',
+                'en' => 'Engineering • Consulting • Finishing • Plant Fit-out',
             ],
             'logo' => '/logo.svg',
-            'phone' => '+963 900 000 000',
-            'whatsapp' => '963900000000',
-            'email' => 'info@ramadan-eng.com',
-            'address' => ['ar' => 'سوريا — العنوان التفصيلي للمكتب', 'en' => 'Syria — Office full address'],
+            'phone' => '+963 998 556 619',
+            'whatsapp' => '963998556619',
+            'email' => 'info@ramadan-eng.com', // مؤقت — استبدله ببريدك الحقيقي
+            'address' => ['ar' => 'دمشق — الميدان', 'en' => 'Damascus — Al-Midan'],
             'working_hours' => ['ar' => 'السبت – الخميس: 9 صباحاً – 5 مساءً', 'en' => 'Sat – Thu: 9 AM – 5 PM'],
             'social' => ['facebook' => '', 'instagram' => '', 'linkedin' => '', 'x' => ''],
         ]);
 
         // ----- Hero -----
         Hero::updateOrCreate(['id' => 1], [
-            'badge' => ['ar' => 'هندسة • استشارات • إكساء', 'en' => 'Engineering • Consulting • Finishing'],
+            'badge' => ['ar' => 'منذ عام 1990', 'en' => 'Since 1990'],
             'title' => [
-                'ar' => 'نبني أفكارك بأعلى معايير الهندسة والجمال',
-                'en' => 'We Build Your Ideas to the Highest Standards',
+                'ar' => 'نبني الثقة ونُصمّم المستقبل',
+                'en' => 'We Build Trust and Design the Future',
             ],
             'subtitle' => [
-                'ar' => 'مكتب رمضان الهندسي يقدّم حلولاً متكاملة في التصميم المعماري والإنشائي، الاستشارات الهندسية، وأعمال الإكساء والديكور بجودة عالية ولمسة عصرية.',
-                'en' => 'RAMADAN Engineering Office delivers integrated solutions in architectural and structural design, engineering consultancy, and premium finishing & decor.',
+                'ar' => 'أكثر من ثلاثة عقود من الخبرة في الهندسة والاستشارات والإكساء وتجهيز المعامل، نحوّل أفكارك إلى مشاريع متكاملة بجودة عالية ولمسة عصرية.',
+                'en' => 'Over three decades of experience in engineering, consulting, finishing and plant fit-out — turning your ideas into integrated, high-quality projects with a modern touch.',
             ],
             'image' => 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80',
             'cta_primary' => ['ar' => 'تصفّح أعمالنا', 'en' => 'View Our Work'],
@@ -60,18 +60,18 @@ class DatabaseSeeder extends Seeder
         About::updateOrCreate(['id' => 1], [
             'title' => ['ar' => 'من نحن', 'en' => 'About Us'],
             'lead' => [
-                'ar' => 'مكتب هندسي رائد يجمع بين الخبرة والإبداع',
-                'en' => 'A leading engineering office blending expertise with creativity',
+                'ar' => 'خبرة تتجاوز ثلاثة عقود في الهندسة والإبداع',
+                'en' => 'Over three decades of engineering expertise and creativity',
             ],
             'body' => [
-                'ar' => 'تأسس مكتب رمضان الهندسي ليكون شريكاً موثوقاً في رحلة بناء وتصميم المشاريع. نقدّم خدمات هندسية متكاملة تشمل التصميم المعماري والإنشائي، الإشراف، والاستشارات، بالإضافة إلى أعمال الإكساء والديكور الداخلي والخارجي.',
-                'en' => 'RAMADAN Engineering Office was founded to be a trusted partner in building and designing projects. We provide integrated engineering services including architectural and structural design, supervision and consultancy, as well as interior and exterior finishing and decor.',
+                'ar' => 'تأسس مكتب RAMADAN الهندسي عام 1990 ليكون شريكاً موثوقاً في بناء وتصميم المشاريع. على مدى أكثر من ثلاثين عاماً، راكمنا خبرة واسعة في التصميم المعماري والإنشائي، الاستشارات والإشراف الهندسي، وأعمال الإكساء والديكور الداخلي والخارجي، إضافةً إلى تجهيز المعامل والمنشآت الصناعية. يقوم عملنا على كادر متكامل ومتخصص يجمع بين الخبرة والدقة، ورؤيتنا أن نقدّم حلولاً هندسية عملية وجمالية تواكب أحدث المعايير وتلبّي تطلعات عملائنا.',
+                'en' => 'RAMADAN Engineering Office was founded in 1990 to be a trusted partner in building and designing projects. Over more than thirty years we have built deep experience in architectural and structural design, engineering consultancy and supervision, interior and exterior finishing and decor, as well as the fit-out of factories and industrial facilities. Our work is driven by a fully integrated, specialized team that combines experience with precision, and our vision is to deliver practical, aesthetic engineering solutions that meet the latest standards and our clients\' aspirations.',
             ],
             'image' => 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1200&q=80',
             'points' => [
-                ['id' => 'p1', 'ar' => 'فريق هندسي متخصص ومعتمد', 'en' => 'Certified specialized engineering team'],
-                ['id' => 'p2', 'ar' => 'التزام بالمواعيد والجودة', 'en' => 'Commitment to deadlines and quality'],
-                ['id' => 'p3', 'ar' => 'حلول تصميم عصرية ومستدامة', 'en' => 'Modern and sustainable design solutions'],
+                ['id' => 'p1', 'ar' => 'كادر متكامل ومتخصص', 'en' => 'Fully integrated specialized team'],
+                ['id' => 'p2', 'ar' => 'خبرة منذ عام 1990', 'en' => 'Experience since 1990'],
+                ['id' => 'p3', 'ar' => 'التزام بالمواعيد والجودة', 'en' => 'Commitment to deadlines and quality'],
                 ['id' => 'p4', 'ar' => 'متابعة كاملة من الفكرة حتى التسليم', 'en' => 'Full follow-up from concept to delivery'],
             ],
         ]);
@@ -87,10 +87,10 @@ class DatabaseSeeder extends Seeder
 
         // ----- Stats -----
         $stats = [
-            ['value' => '12+', 'label' => ['ar' => 'سنوات خبرة', 'en' => 'Years of Experience']],
-            ['value' => '240+', 'label' => ['ar' => 'مشروع منجز', 'en' => 'Completed Projects']],
-            ['value' => '180+', 'label' => ['ar' => 'عميل سعيد', 'en' => 'Happy Clients']],
-            ['value' => '30+', 'label' => ['ar' => 'مهندس وخبير', 'en' => 'Engineers & Experts']],
+            ['value' => '36', 'label' => ['ar' => 'سنوات خبرة', 'en' => 'Years of Experience']],
+            ['value' => '+2000', 'label' => ['ar' => 'مشروع منجز', 'en' => 'Completed Projects']],
+            ['value' => '+735', 'label' => ['ar' => 'عميل', 'en' => 'Clients']],
+            ['value' => '100%', 'label' => ['ar' => 'كادر متكامل ومتخصص', 'en' => 'Fully Integrated Team']],
         ];
         foreach ($stats as $i => $s) {
             Stat::create($s + ['sort' => $i]);
