@@ -1,40 +1,14 @@
-import { createContext, useContext, useEffect, useState, useCallback } from 'react'
-import { api } from '../api/client.js'
+import { createContext, useContext } from 'react'
+import content from '../content.js'
 
 /*
- * Public content is loaded from the Laravel API: GET /api/content.
- * The dashboard mutates content via authenticated endpoints and then calls
- * refresh() so the public pages reflect the latest data.
+ * Static site: all content lives in src/content.js and is bundled at build
+ * time. Edit that file to change any text, image or project on the site.
  */
-const ContentContext = createContext()
+const ContentContext = createContext(content)
 
 export function ContentProvider({ children }) {
-  const [content, setContent] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-
-  const refresh = useCallback(async () => {
-    try {
-      const data = await api.get('/content')
-      setContent(data)
-      setError(false)
-    } catch (e) {
-      console.error('Failed to load content', e)
-      setError(true)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    refresh()
-  }, [refresh])
-
-  return (
-    <ContentContext.Provider value={{ content, loading, error, refresh }}>
-      {children}
-    </ContentContext.Provider>
-  )
+  return <ContentContext.Provider value={{ content }}>{children}</ContentContext.Provider>
 }
 
 export const useContent = () => useContext(ContentContext)

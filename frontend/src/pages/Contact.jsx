@@ -4,7 +4,6 @@ import { useLang } from '../context/LanguageContext.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import Icon from '../components/Icon.jsx'
 import { waLink, mailLink } from '../utils/links.js'
-import { api } from '../api/client.js'
 
 export default function Contact() {
   const { content } = useContent()
@@ -12,25 +11,17 @@ export default function Contact() {
   const site = content?.site || {}
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
-  const [busy, setBusy] = useState(false)
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
 
-  // Store the submission in the database (appears in the dashboard Messages).
-  const submit = async (e) => {
+  // Static site (no server): submitting the form opens WhatsApp with the
+  // message pre-filled so it reaches the office directly.
+  const submit = (e) => {
     e.preventDefault()
-    setBusy(true)
-    try {
-      await api.post('/contact-messages', form)
-      setSent(true)
-      setForm({ name: '', email: '', phone: '', subject: '', message: '' })
-      setTimeout(() => setSent(false), 4000)
-    } catch {
-      /* network error — fall back to WhatsApp below */
-      window.open(waLink(site.whatsapp, buildMessage()), '_blank')
-    } finally {
-      setBusy(false)
-    }
+    window.open(waLink(site.whatsapp, buildMessage()), '_blank')
+    setSent(true)
+    setForm({ name: '', email: '', phone: '', subject: '', message: '' })
+    setTimeout(() => setSent(false), 4000)
   }
 
   const buildMessage = () => {
@@ -45,9 +36,9 @@ export default function Contact() {
     return lines.join('\n')
   }
 
-  const sendWhatsApp = (e) => {
+  const sendEmail = (e) => {
     e.preventDefault()
-    window.open(waLink(site.whatsapp, buildMessage()), '_blank')
+    window.location.href = mailLink(site.email, form.subject || pick(content.contact.title), buildMessage())
   }
 
   const infoItems = [
@@ -126,11 +117,11 @@ export default function Contact() {
               </div>
               {sent && <p className="form-ok">{t('msg_sent')}</p>}
               <div className="form-actions">
-                <button className="btn btn-primary" type="submit" disabled={busy}>
-                  <Icon name="arrow" size={18} /> {busy ? '…' : t('send')}
-                </button>
-                <button className="btn btn-outline" type="button" onClick={sendWhatsApp}>
+                <button className="btn btn-primary" type="submit">
                   <Icon name="whatsapp" size={20} fill /> {t('send_whatsapp')}
+                </button>
+                <button className="btn btn-outline" type="button" onClick={sendEmail}>
+                  <Icon name="mail" size={18} /> {t('send_email')}
                 </button>
               </div>
             </form>
