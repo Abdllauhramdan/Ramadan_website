@@ -5,12 +5,10 @@ import App from './App.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx'
 import { LanguageProvider } from './context/LanguageContext.jsx'
 import { ContentProvider } from './context/ContentContext.jsx'
-import { AuthProvider } from './context/AuthContext.jsx'
 import './index.css'
 import './styles/layout.css'
-import './styles/dashboard.css'
 
-// HashRouter keeps deep links working on static/shared hosting
+// HashRouter keeps deep links working on static hosting (GitHub Pages)
 // without needing server-side rewrite rules.
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -18,9 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ThemeProvider>
         <LanguageProvider>
           <ContentProvider>
-            <AuthProvider>
-              <App />
-            </AuthProvider>
+            <App />
           </ContentProvider>
         </LanguageProvider>
       </ThemeProvider>
