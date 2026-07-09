@@ -17,9 +17,8 @@ ramadan_website/
 ├── frontend/                    ← موقع React + Vite (هذا هو الموقع)
 │   ├── src/content.js           ← ✏️ كل محتوى الموقع — عدّل من هنا
 │   └── public/                  ← الصور واللوغو والملفات الثابتة
-├── .github/workflows/
-│   └── deploy-pages.yml         ← نشر تلقائي على GitHub Pages
-└── backend/                     ← (قديم — لم يعد الموقع يستخدمه)
+└── .github/workflows/
+    └── deploy-pages.yml         ← نشر تلقائي على GitHub Pages
 ```
 
 ---
@@ -80,10 +79,3 @@ GitHub Pages وربط الدومين الذي اشتريته.
 3. أضف دومينك في **Settings → Pages → Custom domain** واضبط DNS عند مزوّد
    الدومين (التفاصيل في `DEPLOYMENT.md`).
 
----
-
-## 📁 ملاحظة عن مجلد `backend/`
-
-كان الموقع سابقاً يعمل بلوحة تحكم و API (Laravel + MySQL). بعد التحويل إلى
-static لم يعد مجلد `backend/` مستخدماً إطلاقاً — يمكنك حذفه من المستودع متى
-شئت، أو إبقاؤه كأرشيف.
