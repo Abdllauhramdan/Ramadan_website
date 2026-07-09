@@ -41,6 +41,8 @@ jobs:
         working-directory: frontend
 
       - uses: actions/configure-pages@v4
+        with:
+          enablement: true # يفعّل GitHub Pages تلقائياً إن لم يكن مفعّلاً
 
       - uses: actions/upload-pages-artifact@v3
         with:
