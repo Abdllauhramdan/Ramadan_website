@@ -131,15 +131,9 @@ const content = {
         en: 'Interior and exterior finishing and modern decor with careful selection of materials and finishes to highlight the identity of the space.',
       },
     },
-    {
-      id: 'srv4',
-      icon: 'factory',
-      title: { ar: 'تجهيز المعامل', en: 'Factory & Plant Fit-out' },
-      description: {
-        ar: 'تصميم وتجهيز المعامل والمنشآت الصناعية بالكامل: دراسة المخططات، توزيع خطوط الإنتاج، البنية التحتية والأعمال الكهروميكانيكية بكفاءة عالية.',
-        en: 'Complete design and fit-out of factories and industrial facilities: layout studies, production-line distribution, infrastructure and electromechanical works with high efficiency.',
-      },
-    },
+   
+      
+   
   ],
 
   /* ---------------------------------------------------------------------------
