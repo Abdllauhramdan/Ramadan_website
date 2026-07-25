@@ -25,15 +25,15 @@ const content = {
     logo: '/logo.svg',
     phone: '+963 998 556 619',
     // رقم الواتساب بالصيغة الدولية بدون + أو فراغات
-    whatsapp: '963998556619',
-    email: 'info@ramadan-eng.com',
+    whatsapp: '+963998556619',
+    email: 'ramadan.construction26@gmail.com',
     address: { ar: 'دمشق — الميدان', en: 'Damascus — Al-Midan' },
     workingHours: {
       ar: 'السبت – الخميس: 9 صباحاً – 5 مساءً',
       en: 'Sat – Thu: 9 AM – 5 PM',
     },
     // روابط التواصل الاجتماعي — اتركها فارغة '' لإخفائها
-    social: { facebook: '', instagram: '', linkedin: '', x: '' },
+    social: { facebook: 'https://www.facebook.com/share/1Gqbmk1os7/?mibextid=wwXIfr', instagram: 'https://www.instagram.com/ramadan.construction.sy?igsh=MTgweXhxbWkwaHl6YQ%3D%3D&utm_source=qr', linkedin: '', x: '' },
   },
 
   /* ---------------------------------------------------------------------------
