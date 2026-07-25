@@ -94,7 +94,7 @@ const content = {
    * ------------------------------------------------------------------------- */
   stats: [
     { id: 's1', value: '36', label: { ar: 'سنوات خبرة', en: 'Years of Experience' } },
-    { id: 's2', value: '+2000', label: { ar: 'مشروع منجز', en: 'Completed Projects' } },
+    { id: 's2', value: '+1000', label: { ar: 'مشروع منجز', en: 'Completed Projects' } },
     { id: 's3', value: '+735', label: { ar: 'عميل', en: 'Clients' } },
     { id: 's4', value: '100%', label: { ar: 'كادر متكامل ومتخصص', en: 'Fully Integrated Team' } },
   ],
